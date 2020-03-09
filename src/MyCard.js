@@ -10,7 +10,7 @@ const MyCard = ({ name, job, avatar, image }) => {
   const { Meta } = Card;
   return (
     <Card
-      style={{ width: 350 }}
+      style={{ width: "100%" }}
       cover={<img alt="example" src={image} />}
       actions={[
         <SettingOutlined key="setting" />,

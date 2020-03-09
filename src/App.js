@@ -3,8 +3,8 @@ import { Button, Layout, Breadcrumb, Row, Col } from "antd";
 import "antd/dist/antd.css";
 import "./App.css";
 import MyCard from "./MyCard";
-import faker from "faker";
 import axios from "axios";
+import dataSource from "./DataSource";
 
 const unsplashClientId = process.env.REACT_APP_UNSPLASH_CLIENT_ID;
 
@@ -18,7 +18,7 @@ const App = () => {
         params: {
           page: 1,
           per_page: 6,
-          query: "developers"
+          query: "engineer"
         },
         headers: {
           Authorization: `Client-ID ${unsplashClientId}`
@@ -43,82 +43,27 @@ const App = () => {
             transition: "all .3s"
           }}
         >
-          <h1>TensorflowJS</h1>
+          <Button
+            size="large"
+            type="danger"
+            style={{ margin: "0px 50px 16px 0" }}
+          >
+            TensorflowJS
+          </Button>
 
           <Row justify="space-around">
-            <Col span={6}>
-              <MyCard
-                name={faker.name.findName()}
-                job={faker.name.jobTitle()}
-                avatar={faker.image.avatar()}
-                image={imageUrls[0] && imageUrls[0].urls.raw}
-              />
-            </Col>
-            <Col span={6}>
-              <MyCard
-                name={faker.name.findName()}
-                job={faker.name.jobTitle()}
-                avatar={faker.image.avatar()}
-                image={imageUrls[1] && imageUrls[1].urls.raw}
-              />
-            </Col>
-            <Col span={6}>
-              <MyCard
-                name={faker.name.findName()}
-                job={faker.name.jobTitle()}
-                avatar={faker.image.avatar()}
-                image={imageUrls[2] && imageUrls[2].urls.raw}
-              />
-            </Col>
-          </Row>
-          <Content className="Content">
-            <Button
-              size="large"
-              type="danger"
-              style={{ margin: "0px 50px 16px 0" }}
-            >
-              Task 1
-            </Button>
-          </Content>
-        </Content>
-      </Layout>
-      <Layout style={{ padding: "0 15px 15px" }}>
-        <Breadcrumb style={{ margin: "16px 0" }} />
-        <Content
-          style={{
-            padding: "20px 50px",
-            borderRadius: "2px",
-            position: "relative",
-            transition: "all .3s"
-          }}
-        >
-          <h1>TensorflowJS</h1>
-
-          <Row justify="space-around">
-            <Col span={6}>
-              <MyCard
-                name={faker.name.findName()}
-                job={faker.name.jobTitle()}
-                avatar={faker.image.avatar()}
-                image={imageUrls[3] && imageUrls[3].urls.raw}
-              />
-            </Col>
-            <Col span={6}>
-              <MyCard
-                name={faker.name.findName()}
-                job={faker.name.jobTitle()}
-                avatar={faker.image.avatar()}
-                image={imageUrls[4] && imageUrls[4].urls.raw}
-              />
-            </Col>
-            <Col span={6}>
-              <MyCard
-                name={faker.name.findName()}
-                job={faker.name.jobTitle()}
-                avatar={faker.image.avatar()}
-                image={imageUrls[5] && imageUrls[5].urls.raw}
-              />
-            </Col>
+            {dataSource.map(({ name, job, avatar }, idx) => {
+              return (
+                <Col key={idx} span={7}>
+                  <MyCard
+                    name={name}
+                    job={job}
+                    avatar={avatar}
+                    image={imageUrls[idx] && imageUrls[idx].urls.raw}
+                  />
+                </Col>
+              );
+            })}
           </Row>
           <Content className="Content">
             <Button
