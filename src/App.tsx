@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import * as React from "react";
 import { Button, Layout, Breadcrumb, Row, Col } from "antd";
 import "antd/dist/antd.css";
 import "./App.css";
@@ -8,17 +8,17 @@ import dataSource from "./DataSource";
 
 const unsplashClientId = process.env.REACT_APP_UNSPLASH_CLIENT_ID;
 
-const App = () => {
+const App: React.FC = () => {
   const { Content } = Layout;
-  const [imageUrls, setImageUrls] = useState([]);
+  const [imageUrls, setImageUrls] = React.useState([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const getImage = async () => {
       const res = await axios.get(`https://api.unsplash.com/search/photos`, {
         params: {
           page: 1,
           per_page: 6,
-          query: "engineer"
+          query: "students"
         },
         headers: {
           Authorization: `Client-ID ${unsplashClientId}`
@@ -59,7 +59,7 @@ const App = () => {
                     name={name}
                     job={job}
                     avatar={avatar}
-                    image={imageUrls[idx] && imageUrls[idx].urls.raw}
+                    image={imageUrls[idx]}
                   />
                 </Col>
               );
